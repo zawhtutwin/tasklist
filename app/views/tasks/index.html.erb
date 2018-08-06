@@ -1,0 +1,45 @@
+<h1>Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task name</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.task_name %></td>
+        <td>
+          <div class="field">
+          <%=form_for(task) do |f| %>
+           <%unless task[:status]%>
+                <%= f.label "Done?" %>
+                <%= f.check_box :status, {}, true, false %> <br />
+            <%else%>
+                <strong>Done!</strong>| <button name="reopen">Reopen</button>
+                <%= f.hidden_field :status,value:false%>
+            <%end%>
+            </div>
+          <%end%>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<script>
+
+  $('input[name="task[status]"]').click(function(){
+    $(this).closest("form").submit();  
+  })
+  $('input[name="reopen"]').click(function(){
+    $(this).closest("form").submit();  
+  })
+
+  reopen
+  
+</script>
